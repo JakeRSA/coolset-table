@@ -1,18 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { TestComponent } from "./TestComponent";
+import { Table } from "./Table";
 
 const meta = {
-  title: "Example/TestComponent",
-  component: TestComponent,
-  parameters: {
-    layout: "centered",
-  },
+  title: "Components/Table",
+  component: Table,
   tags: ["autodocs"],
   argTypes: {
     str: { control: "text" },
   },
-  args: { str: "Hello, World!" },
-} satisfies Meta<typeof TestComponent>;
+} satisfies Meta<typeof Table>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
