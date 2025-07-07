@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Table } from "./Table";
+import { mockData } from "./mockData";
 
 const meta = {
   title: "Components/Table",
   component: Table,
   tags: ["autodocs"],
   argTypes: {
-    str: { control: "text" },
+    data: { control: "text" },
   },
 } satisfies Meta<typeof Table>;
 
@@ -15,6 +16,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    str: "This is a test string",
+    data: mockData,
+    title: "Today's groceries",
   },
 };
