@@ -3,19 +3,19 @@ import { Button, DropdownMenu, Flex, Text } from "@radix-ui/themes";
 type RowsPerPageProps = {
   rowsPerPage: number;
   rowsPerPageOptions: number[];
-  onRowsPerPageChange: (newRowsPerPage: number) => void;
+  onChangeRowsPerPage: (newRowsPerPage: number) => void;
 };
 
 export const RowsPerPage = ({
   rowsPerPage,
   rowsPerPageOptions,
-  onRowsPerPageChange,
+  onChangeRowsPerPage,
 }: RowsPerPageProps) => {
   if (rowsPerPageOptions.length === 0) {
     throw new Error("rowsPerPageOptions must contain at least one option");
   }
   return (
-    <Flex gap="2">
+    <Flex gap="2" align="center">
       <Text>Rows per page:</Text>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
@@ -28,7 +28,7 @@ export const RowsPerPage = ({
           {rowsPerPageOptions.map((option) => (
             <DropdownMenu.Item
               key={option}
-              onClick={() => onRowsPerPageChange(option)}
+              onSelect={() => onChangeRowsPerPage(option)}
             >
               {option}
             </DropdownMenu.Item>

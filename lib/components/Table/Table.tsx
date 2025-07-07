@@ -1,25 +1,43 @@
-import { Flex, Heading, Table as RTable } from "@radix-ui/themes";
+import { Flex, Table as RTable } from "@radix-ui/themes";
 import { useState } from "react";
 import { RowsPerPage } from "./RowsPerPage";
 import { PageSwitcher } from "./PageSwitcher";
+import { Header } from "./Header";
+import { TableContent } from "./TableContent";
 
-export type TableRow<T> = T & {
+export type SectionTitle =
+  | "Produce"
+  | "Dairy"
+  | "Bakery"
+  | "Meat"
+  | "Seafood"
+  | "Beverages"
+  | "Pantry"
+  | "Frozen"
+  | "Snacks"
+  | "Condiments"
+  | "Canned Goods"
+  | "Breakfast";
+
+export type TableRow = {
   id: number;
+  name: string;
+  section: SectionTitle;
+  price: number;
+  weight: number;
 };
-
-export type TableData = TableRow<Record<string, any>>[];
 
 type PaginationProps = {
   // TODO: page, rowsPerPage, selectedPage should be passed to table with pagination prop?
   rowsPerPageOptions: number[];
-  onPageChange: (
+  onChangePage: (
     event: React.MouseEvent<HTMLButtonElement>,
     newPage: number
   ) => void;
 };
 
 type Props = {
-  data: TableData;
+  data: TableRow[];
   title: string;
   pagination?: PaginationProps;
 };
@@ -31,9 +49,19 @@ export const Table = ({ data, title, pagination }: Props) => {
 
   const [selectedPage, setSelectedPage] = useState(1);
 
-  if (!data || data.length === 0) {
-    return <p>No data available</p>;
-  }
+  const initialSectionFilters = data.reduce<Record<string, boolean>>(
+    (acc, row) => {
+      if (!acc[row.section]) {
+        acc[row.section] = true;
+      }
+      return acc;
+    },
+    {}
+  );
+
+  const [sectionFilters, setSectionFilters] = useState<
+    Record<SectionTitle, boolean>
+  >(initialSectionFilters);
 
   const headers = Object.keys(data[0])
     .filter((key) => key !== "id")
@@ -41,12 +69,14 @@ export const Table = ({ data, title, pagination }: Props) => {
       <RTable.ColumnHeaderCell key={key}>{key}</RTable.ColumnHeaderCell>
     ));
 
+  const filteredData = data.filter((row) => sectionFilters[row.section]);
+
   const recordsToDisplay = pagination
-    ? data.slice(
+    ? filteredData.slice(
         (selectedPage - 1) * selectedRowsPerPage,
         selectedPage * selectedRowsPerPage
       )
-    : data;
+    : filteredData;
 
   const rows = recordsToDisplay.map((row) => (
     <RTable.Row key={row.id}>
@@ -64,28 +94,39 @@ export const Table = ({ data, title, pagination }: Props) => {
     </RTable.Row>
   ));
 
+  if (!filteredData || filteredData.length === 0) {
+    return <p>No data available</p>;
+  }
+
   return (
     <>
-      <Heading>{title}</Heading>
-      <RTable.Root variant="surface">
-        <RTable.Header>{headers}</RTable.Header>
-        <RTable.Body>{rows}</RTable.Body>
-      </RTable.Root>
+      {/* TODO: rename Header so it doesn't clash conceptually with Radix UI's Header */}
+      <Header
+        title={title}
+        sections={sectionFilters}
+        onChangeFilteredSections={setSectionFilters}
+      />
+      <TableContent rows={rows} />
       {pagination && (
-        <Flex>
+        <Flex align="center">
           <RowsPerPage
             rowsPerPage={selectedRowsPerPage}
             rowsPerPageOptions={pagination.rowsPerPageOptions}
-            onRowsPerPageChange={(selectedOption) => {
+            onChangeRowsPerPage={(selectedOption) => {
               setSelectedPage(1);
               setSelectedRowsPerPage(selectedOption);
+              // TODO fix this:
+              window.scrollTo({ top: 0 });
             }}
           />
           <PageSwitcher
             page={selectedPage}
             rowsPerPage={selectedRowsPerPage}
-            count={data.length}
-            onPageChange={setSelectedPage}
+            count={filteredData.length}
+            onChangePage={(newPage) => {
+              setSelectedPage(newPage);
+              window.scrollTo({ top: 0 });
+            }}
           />
         </Flex>
       )}

@@ -22,7 +22,7 @@ export const Default: Story = {
       // page: 1,
       rowsPerPageOptions: [10, 25, 50, 100],
       // rowsPerPage: 10,
-      onPageChange: (rows) => console.log("Rows per page changed to:", rows),
+      onChangePage: (rows) => console.log("Rows per page changed to:", rows),
     },
   },
 };
