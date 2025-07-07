@@ -1,23 +1,10 @@
-import { Flex, Table as RTable } from "@radix-ui/themes";
+import { Flex, Table as RTable, Text } from "@radix-ui/themes";
 import { useState } from "react";
 import { RowsPerPage } from "./RowsPerPage";
 import { PageSwitcher } from "./PageSwitcher";
 import { Header } from "./Header";
 import { TableContent } from "./TableContent";
-
-export type SectionTitle =
-  | "Produce"
-  | "Dairy"
-  | "Bakery"
-  | "Meat"
-  | "Seafood"
-  | "Beverages"
-  | "Pantry"
-  | "Frozen"
-  | "Snacks"
-  | "Condiments"
-  | "Canned Goods"
-  | "Breakfast";
+import { DEFAULT_ROWS_PER_PAGE, type SectionTitle } from "./consts";
 
 export type TableRow = {
   id: number;
@@ -27,24 +14,14 @@ export type TableRow = {
   weight: number;
 };
 
-type PaginationProps = {
-  // TODO: page, rowsPerPage, selectedPage should be passed to table with pagination prop?
-  rowsPerPageOptions: number[];
-  onChangePage: (
-    event: React.MouseEvent<HTMLButtonElement>,
-    newPage: number
-  ) => void;
-};
-
 type Props = {
   data: TableRow[];
   title: string;
-  pagination?: PaginationProps;
 };
 
-export const Table = ({ data, title, pagination }: Props) => {
+export const Table = ({ data, title }: Props) => {
   const [selectedRowsPerPage, setSelectedRowsPerPage] = useState(
-    pagination?.rowsPerPageOptions?.[0] || Number.POSITIVE_INFINITY
+    DEFAULT_ROWS_PER_PAGE
   );
 
   const [selectedPage, setSelectedPage] = useState(1);
@@ -63,21 +40,12 @@ export const Table = ({ data, title, pagination }: Props) => {
     Record<SectionTitle, boolean>
   >(initialSectionFilters);
 
-  const headers = Object.keys(data[0])
-    .filter((key) => key !== "id")
-    .map((key) => (
-      <RTable.ColumnHeaderCell key={key}>{key}</RTable.ColumnHeaderCell>
-    ));
-
   const filteredData = data.filter((row) => sectionFilters[row.section]);
 
-  const recordsToDisplay = pagination
-    ? filteredData.slice(
-        (selectedPage - 1) * selectedRowsPerPage,
-        selectedPage * selectedRowsPerPage
-      )
-    : filteredData;
-
+  const recordsToDisplay = filteredData.slice(
+    (selectedPage - 1) * selectedRowsPerPage,
+    selectedPage * selectedRowsPerPage
+  );
   const rows = recordsToDisplay.map((row) => (
     <RTable.Row key={row.id}>
       {Object.entries(row).reduce<React.ReactElement[]>(
@@ -95,41 +63,37 @@ export const Table = ({ data, title, pagination }: Props) => {
   ));
 
   if (!filteredData || filteredData.length === 0) {
-    return <p>No data available</p>;
+    return <Text>No data available</Text>;
   }
 
   return (
     <>
-      {/* TODO: rename Header so it doesn't clash conceptually with Radix UI's Header */}
       <Header
         title={title}
         sections={sectionFilters}
         onChangeFilteredSections={setSectionFilters}
       />
       <TableContent rows={rows} />
-      {pagination && (
-        <Flex align="center">
-          <RowsPerPage
-            rowsPerPage={selectedRowsPerPage}
-            rowsPerPageOptions={pagination.rowsPerPageOptions}
-            onChangeRowsPerPage={(selectedOption) => {
-              setSelectedPage(1);
-              setSelectedRowsPerPage(selectedOption);
-              // TODO fix this:
-              window.scrollTo({ top: 0 });
-            }}
-          />
-          <PageSwitcher
-            page={selectedPage}
-            rowsPerPage={selectedRowsPerPage}
-            count={filteredData.length}
-            onChangePage={(newPage) => {
-              setSelectedPage(newPage);
-              window.scrollTo({ top: 0 });
-            }}
-          />
-        </Flex>
-      )}
+      <Flex align="center">
+        <RowsPerPage
+          rowsPerPage={selectedRowsPerPage}
+          onChangeRowsPerPage={(selectedOption) => {
+            setSelectedPage(1);
+            setSelectedRowsPerPage(selectedOption);
+            // TODO fix this:
+            window.scrollTo({ top: 0 });
+          }}
+        />
+        <PageSwitcher
+          page={selectedPage}
+          rowsPerPage={selectedRowsPerPage}
+          count={filteredData.length}
+          onChangePage={(newPage) => {
+            setSelectedPage(newPage);
+            window.scrollTo({ top: 0 });
+          }}
+        />
+      </Flex>
     </>
   );
 };

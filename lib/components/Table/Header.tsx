@@ -1,5 +1,5 @@
 import { Button, DropdownMenu, Flex, Heading } from "@radix-ui/themes";
-import type { SectionTitle } from "./Table";
+import type { SectionTitle } from "./consts";
 
 export type Sections = Record<SectionTitle, boolean>;
 
