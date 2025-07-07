@@ -18,5 +18,11 @@ export const Default: Story = {
   args: {
     data: mockData,
     title: "Today's groceries",
+    pagination: {
+      // page: 1,
+      rowsPerPageOptions: [10, 25, 50, 100],
+      // rowsPerPage: 10,
+      onPageChange: (rows) => console.log("Rows per page changed to:", rows),
+    },
   },
 };
