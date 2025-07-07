@@ -1,8 +1,12 @@
-import { Heading, Table } from "@radix-ui/themes";
+import { Flex, Heading, Table, Text } from "@radix-ui/themes";
 
 export const TableContent = ({ rows }: { rows: React.ReactNode[] }) => {
   if (!rows || rows.length === 0) {
-    return <p>No data available</p>;
+    return (
+      <Flex justify="center" p="4">
+        <Text>No data available</Text>
+      </Flex>
+    );
   }
 
   return (

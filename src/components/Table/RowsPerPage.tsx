@@ -1,5 +1,6 @@
 import { Button, DropdownMenu, Flex, Text } from "@radix-ui/themes";
 import { ROWS_PER_PAGE_OPTIONS } from "./consts";
+import { TriangleDownIcon } from "@radix-ui/react-icons";
 
 type RowsPerPageProps = {
   rowsPerPage: number;
@@ -17,7 +18,7 @@ export const RowsPerPage = ({
         <DropdownMenu.Trigger>
           <Button variant="ghost" size="1">
             {rowsPerPage}
-            <DropdownMenu.TriggerIcon />
+            <TriangleDownIcon />
           </Button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content variant="solid">

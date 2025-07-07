@@ -62,12 +62,8 @@ export const Table = ({ data }: Props) => {
     </RTable.Row>
   ));
 
-  if (!filteredData || filteredData.length === 0) {
-    return <Text>No data available</Text>;
-  }
-
   return (
-    <Flex direction="column" gap="3" width="100vw" p="2">
+    <Flex direction="column" gap="3" width="100vw" p="9">
       {/* TODO sticky header */}
       <Header
         sections={sectionFilters}
