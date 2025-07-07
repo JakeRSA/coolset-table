@@ -11,11 +11,11 @@ export const RowsPerPage = ({
   onChangeRowsPerPage,
 }: RowsPerPageProps) => {
   return (
-    <Flex gap="2" align="center">
-      <Text>Rows per page:</Text>
+    <Flex gap="3" align="center">
+      <Text size="1">Rows per page:</Text>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <Button>
+          <Button variant="ghost" size="1">
             {rowsPerPage}
             <DropdownMenu.TriggerIcon />
           </Button>

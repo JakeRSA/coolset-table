@@ -1,10 +1,9 @@
 import { Flex, Table as RTable, Text } from "@radix-ui/themes";
 import { useState } from "react";
-import { RowsPerPage } from "./RowsPerPage";
-import { PageSwitcher } from "./PageSwitcher";
 import { Header } from "./Header";
 import { TableContent } from "./TableContent";
 import { DEFAULT_ROWS_PER_PAGE, type SectionTitle } from "./consts";
+import { Footer } from "./Footer";
 
 export type TableRow = {
   id: number;
@@ -16,10 +15,9 @@ export type TableRow = {
 
 type Props = {
   data: TableRow[];
-  title: string;
 };
 
-export const Table = ({ data, title }: Props) => {
+export const Table = ({ data }: Props) => {
   const [selectedRowsPerPage, setSelectedRowsPerPage] = useState(
     DEFAULT_ROWS_PER_PAGE
   );
@@ -41,6 +39,8 @@ export const Table = ({ data, title }: Props) => {
   >(initialSectionFilters);
 
   const filteredData = data.filter((row) => sectionFilters[row.section]);
+
+  // TODO sorting
 
   const recordsToDisplay = filteredData.slice(
     (selectedPage - 1) * selectedRowsPerPage,
@@ -67,33 +67,25 @@ export const Table = ({ data, title }: Props) => {
   }
 
   return (
-    <>
+    <Flex direction="column" gap="3" width="100vw" p="2">
+      {/* TODO sticky header */}
       <Header
-        title={title}
         sections={sectionFilters}
         onChangeFilteredSections={setSectionFilters}
       />
       <TableContent rows={rows} />
-      <Flex align="center">
-        <RowsPerPage
-          rowsPerPage={selectedRowsPerPage}
-          onChangeRowsPerPage={(selectedOption) => {
-            setSelectedPage(1);
-            setSelectedRowsPerPage(selectedOption);
-            // TODO fix this:
-            window.scrollTo({ top: 0 });
-          }}
-        />
-        <PageSwitcher
-          page={selectedPage}
-          rowsPerPage={selectedRowsPerPage}
-          count={filteredData.length}
-          onChangePage={(newPage) => {
-            setSelectedPage(newPage);
-            window.scrollTo({ top: 0 });
-          }}
-        />
-      </Flex>
-    </>
+      <Footer
+        displayedData={filteredData}
+        selectedRowsPerPage={selectedRowsPerPage}
+        onChangeRowsPerPage={(rowsPerPage) => {
+          setSelectedPage(1);
+          setSelectedRowsPerPage(rowsPerPage);
+        }}
+        selectedPage={selectedPage}
+        onChangePage={(page) => {
+          setSelectedPage(page);
+        }}
+      />
+    </Flex>
   );
 };

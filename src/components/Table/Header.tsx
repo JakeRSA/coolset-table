@@ -1,19 +1,15 @@
 import { Button, DropdownMenu, Flex, Heading } from "@radix-ui/themes";
 import type { SectionTitle } from "./consts";
+import { MixerHorizontalIcon } from "@radix-ui/react-icons";
 
 export type Sections = Record<SectionTitle, boolean>;
 
 type HeaderProps = {
-  title: string;
   sections: Sections;
   onChangeFilteredSections: (sectionFilters: Sections) => void;
 };
 
-export const Header = ({
-  title,
-  sections,
-  onChangeFilteredSections,
-}: HeaderProps) => {
+export const Header = ({ sections, onChangeFilteredSections }: HeaderProps) => {
   const isFilterButtonVisible = Object.entries(sections).length > 0;
 
   const menuItems = Object.entries(sections).map(([field, isSelected]) => (
@@ -33,12 +29,17 @@ export const Header = ({
   ));
 
   return (
-    <Flex justify={"between"} align="center" gap="2">
-      <Heading>{title}</Heading>
+    <Flex justify={"between"} align="center">
+      <Heading size="3" weight="medium">
+        Today's groceries
+      </Heading>
       {isFilterButtonVisible && (
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
-            <Button>Filter by section</Button>
+            <Button variant="outline">
+              <MixerHorizontalIcon />
+              Filter by section
+            </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content variant="solid">
             {menuItems}

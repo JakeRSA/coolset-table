@@ -5,7 +5,7 @@ import "@radix-ui/themes/styles.css";
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <Theme>
+      <Theme accentColor="gray">
         <Story />
       </Theme>
     ),

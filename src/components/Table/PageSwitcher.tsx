@@ -19,7 +19,7 @@ export const PageSwitcher = ({
   const isLastPage = lastRowIndex >= count;
   return (
     <Flex gap="2" align="center">
-      <Text>{`${firstRowIndex}-${lastRowIndex} of ${count}`}</Text>
+      <Text size="1">{`${firstRowIndex}-${lastRowIndex} of ${count}`}</Text>
       <IconButton
         variant="ghost"
         disabled={page === 1}
