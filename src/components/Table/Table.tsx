@@ -1,9 +1,9 @@
-import { Flex, Table as RTable, Text } from "@radix-ui/themes";
+import { Flex, Table as RTable } from "@radix-ui/themes";
 import { useState } from "react";
 import { Header } from "./Header";
 import { TableContent } from "./TableContent";
 import { DEFAULT_ROWS_PER_PAGE, type SectionTitle } from "./consts";
-import { Footer } from "./Footer";
+import { Footer } from "./Footer/Footer";
 
 export type TableRow = {
   id: number;

@@ -1,5 +1,5 @@
 import { Button, DropdownMenu, Flex, Text } from "@radix-ui/themes";
-import { ROWS_PER_PAGE_OPTIONS } from "./consts";
+import { ROWS_PER_PAGE_OPTIONS } from "../consts";
 import { TriangleDownIcon } from "@radix-ui/react-icons";
 
 type RowsPerPageProps = {
