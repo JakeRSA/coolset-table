@@ -44,7 +44,7 @@ export const TableContent = ({
           sorting={sorting}
         />
         <HeaderCell
-          fieldName="weight"
+          fieldName="pricePerWeight"
           label="Price / 100g (€)"
           onChangeSorting={onChangeSorting}
           sorting={sorting}

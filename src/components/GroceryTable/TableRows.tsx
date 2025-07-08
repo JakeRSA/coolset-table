@@ -6,11 +6,13 @@ export const TableRows = ({ data }: { data: GroceryTableRow[] }) => {
     <Table.Row key={row.id}>
       {Object.entries(row).reduce<React.ReactElement[]>(
         (cells, [key, value]) => {
-          if (key !== "id") {
-            cells.push(
-              <Table.Cell key={`${key}=${row.id}`}>{value}</Table.Cell>
-            );
+          if (key === "id") {
+            return cells;
           }
+          if (key === "weight") {
+            return cells;
+          }
+          cells.push(<Table.Cell key={`${key}=${row.id}`}>{value}</Table.Cell>);
           return cells;
         },
         []

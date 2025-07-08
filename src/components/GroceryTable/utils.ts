@@ -1,8 +1,8 @@
 import type { SectionTitle } from "./consts";
-import type { GroceryTableRow, Sorting } from "./GroceryTable";
+import type { GroceryData, GroceryTableRow, Sorting } from "./GroceryTable";
 
 export const getInitialSectionFilters = (
-  data: GroceryTableRow[]
+  data: GroceryData[]
 ): Record<SectionTitle, boolean> => {
   return data.reduce<Record<string, boolean>>((acc, row) => {
     if (!acc[row.section]) {
@@ -17,11 +17,16 @@ export const getSortedAndFilteredTableData = ({
   sorting,
   filters,
 }: {
-  data: GroceryTableRow[];
+  data: GroceryData[];
   sorting: Sorting;
   filters: Record<SectionTitle, boolean>;
 }) => {
   return data
+    .map((item) => ({
+      ...item,
+      weight: undefined,
+      pricePerWeight: (item.price / item.weight / 10).toFixed(2),
+    }))
     .filter((row) => filters[row.section])
     .sort((rowA, rowB) => {
       if (!sorting) return 0;

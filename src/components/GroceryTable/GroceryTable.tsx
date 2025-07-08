@@ -10,12 +10,16 @@ import {
   getSortedAndFilteredTableData,
 } from "./utils";
 
-export type GroceryTableRow = {
+export type GroceryData = {
   id: number;
   name: string;
   section: SectionTitle;
   price: number;
   weight: number;
+};
+
+export type GroceryTableRow = Omit<GroceryData, "weight"> & {
+  pricePerWeight: string;
 };
 
 export type Sorting = {
@@ -24,7 +28,7 @@ export type Sorting = {
 } | null;
 
 type GroceryTableProps = {
-  data: GroceryTableRow[];
+  data: GroceryData[];
 };
 
 export const GroceryTable = ({ data }: GroceryTableProps) => {
