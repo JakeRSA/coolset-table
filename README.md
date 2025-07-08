@@ -1,69 +1,99 @@
-# React + TypeScript + Vite
+# Grocery Table
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive grocery table built with **React**, **TypeScript**, **Vite**, **Radix UI**, and **Tailwind CSS**.  
+Easily browse, filter, sort, and paginate a list of grocery items.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Filter** groceries by section
+- **Sort** by name, section, price, or price per 100g
+- **Pagination** and adjustable rows per page
+- **Responsive** and accessible UI using Radix UI and Tailwind CSS
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+.
+├── src/
+│   ├── App.tsx
+│   ├── main.tsx
+│   ├── App.css
+│   └── components/
+│       └── GroceryTable/
+│           ├── GroceryTable.tsx
+│           ├── mockData.ts
+│           ├── utils.ts
+│           ├── TableContent.tsx
+│           ├── TableRows.tsx
+│           ├── HeaderCell.tsx
+│           ├── PageHeader.tsx
+│           └── Footer/
+│               ├── Footer.tsx
+│               ├── PageSwitcher.tsx
+│               └── RowsPerPage.tsx
+├── index.html
+├── package.json
+└── ...
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- [Node.js](https://nodejs.org/) (see `.nvmrc` for recommended version)
+- [Yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/)
+
+### Installation
+
+```sh
+# Install dependencies
+yarn install
+# or
+npm install
 ```
+
+### Development
+
+```sh
+yarn dev
+# or
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) to view the app.
+
+### Build
+
+```sh
+yarn build
+# or
+npm run build
+```
+
+### Preview Production Build
+
+```sh
+yarn preview
+# or
+npm run preview
+```
+
+## Linting
+
+```sh
+yarn lint
+# or
+npm run lint
+```
+
+## Deployment
+
+Static deployment is configured for GitHub Pages via [GitHub Actions](.github/workflows/deploy.yml). Click [here](https://jakersa.github.io/coolset-table/) to visit the deployed app
+
+## License
+
+MIT (add a LICENSE file if you want to specify this)
+
+---
+
+Made using [React](https://react.dev/), [Vite](https://vitejs.dev/), [Radix UI](https://www.radix-ui.com/themes), and [Tailwind CSS](https://tailwindcss.com/).
