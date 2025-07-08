@@ -1,7 +1,19 @@
-import { Flex, Heading, Table, Text } from "@radix-ui/themes";
+import { Flex, Table, Text } from "@radix-ui/themes";
+import type { Sorting } from "./Table";
+import { HeaderCell } from "./HeaderCell";
 
-export const TableContent = ({ rows }: { rows: React.ReactNode[] }) => {
-  if (!rows || rows.length === 0) {
+type TableContentProps = {
+  rows: React.ReactNode[];
+  sorting: Sorting;
+  onChangeSorting: (sorting: TableContentProps["sorting"]) => void;
+};
+
+export const TableContent = ({
+  rows,
+  sorting,
+  onChangeSorting,
+}: TableContentProps) => {
+  if (rows.length === 0) {
     return (
       <Flex justify="center" p="4">
         <Text>No data available</Text>
@@ -12,26 +24,30 @@ export const TableContent = ({ rows }: { rows: React.ReactNode[] }) => {
   return (
     <Table.Root variant="surface" size="1">
       <Table.Header>
-        <Table.ColumnHeaderCell key={"name"}>
-          <Heading size="1" weight="bold">
-            Name
-          </Heading>
-        </Table.ColumnHeaderCell>
-        <Table.ColumnHeaderCell key={"section"}>
-          <Heading size="1" weight="bold">
-            Section
-          </Heading>
-        </Table.ColumnHeaderCell>
-        <Table.ColumnHeaderCell key={"price"}>
-          <Heading size="1" weight="bold">
-            Price (€)
-          </Heading>
-        </Table.ColumnHeaderCell>
-        <Table.ColumnHeaderCell key={"weight"}>
-          <Heading size="1" weight="bold">
-            Price / 100g (€)
-          </Heading>
-        </Table.ColumnHeaderCell>
+        <HeaderCell
+          fieldName="name"
+          label="Name"
+          onChangeSorting={onChangeSorting}
+          sorting={sorting}
+        />
+        <HeaderCell
+          fieldName="section"
+          label="Section"
+          onChangeSorting={onChangeSorting}
+          sorting={sorting}
+        />
+        <HeaderCell
+          fieldName="price"
+          label="Price (€)"
+          onChangeSorting={onChangeSorting}
+          sorting={sorting}
+        />
+        <HeaderCell
+          fieldName="weight"
+          label="Price / 100g (€)"
+          onChangeSorting={onChangeSorting}
+          sorting={sorting}
+        />
       </Table.Header>
       <Table.Body>{rows}</Table.Body>
     </Table.Root>

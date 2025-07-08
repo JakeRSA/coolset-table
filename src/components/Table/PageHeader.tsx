@@ -9,7 +9,10 @@ type HeaderProps = {
   onChangeFilteredSections: (sectionFilters: Sections) => void;
 };
 
-export const Header = ({ sections, onChangeFilteredSections }: HeaderProps) => {
+export const PageHeader = ({
+  sections,
+  onChangeFilteredSections,
+}: HeaderProps) => {
   const isFilterButtonVisible = Object.entries(sections).length > 0;
 
   const menuItems = Object.entries(sections).map(([field, isSelected]) => (

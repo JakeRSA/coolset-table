@@ -1,6 +1,6 @@
 import { Flex, Table as RTable } from "@radix-ui/themes";
 import { useState } from "react";
-import { Header } from "./Header";
+import { PageHeader } from "./PageHeader";
 import { TableContent } from "./TableContent";
 import { DEFAULT_ROWS_PER_PAGE, type SectionTitle } from "./consts";
 import { Footer } from "./Footer/Footer";
@@ -13,6 +13,11 @@ export type TableRow = {
   weight: number;
 };
 
+export type Sorting = {
+  key: keyof TableRow;
+  direction: "ascending" | "descending";
+} | null;
+
 type Props = {
   data: TableRow[];
 };
@@ -21,7 +26,6 @@ export const Table = ({ data }: Props) => {
   const [selectedRowsPerPage, setSelectedRowsPerPage] = useState(
     DEFAULT_ROWS_PER_PAGE
   );
-
   const [selectedPage, setSelectedPage] = useState(1);
 
   const initialSectionFilters = data.reduce<Record<string, boolean>>(
@@ -37,10 +41,20 @@ export const Table = ({ data }: Props) => {
   const [sectionFilters, setSectionFilters] = useState<
     Record<SectionTitle, boolean>
   >(initialSectionFilters);
+  const [sorting, setSorting] = useState<Sorting>(null);
 
-  const filteredData = data.filter((row) => sectionFilters[row.section]);
-
-  // TODO sorting
+  const filteredData = data
+    .filter((row) => sectionFilters[row.section])
+    .sort((rowA, rowB) => {
+      if (!sorting) return 0;
+      if (rowA[sorting.key] < rowB[sorting.key]) {
+        return sorting.direction === "ascending" ? -1 : 1;
+      }
+      if (rowA[sorting.key] > rowB[sorting.key]) {
+        return sorting.direction === "ascending" ? 1 : -1;
+      }
+      return 0;
+    });
 
   const recordsToDisplay = filteredData.slice(
     (selectedPage - 1) * selectedRowsPerPage,
@@ -63,13 +77,19 @@ export const Table = ({ data }: Props) => {
   ));
 
   return (
-    <Flex direction="column" gap="3" width="100vw" p="9">
+    <Flex direction="column" gap="3" width="100%" p="9">
       {/* TODO sticky header */}
-      <Header
+      <PageHeader
         sections={sectionFilters}
         onChangeFilteredSections={setSectionFilters}
       />
-      <TableContent rows={rows} />
+      <TableContent
+        rows={rows}
+        sorting={sorting}
+        onChangeSorting={(updatedSorting) => {
+          setSorting(updatedSorting);
+        }}
+      />
       <Footer
         displayedData={filteredData}
         selectedRowsPerPage={selectedRowsPerPage}
