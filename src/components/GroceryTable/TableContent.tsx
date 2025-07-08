@@ -25,30 +25,32 @@ export const TableContent = ({
   return (
     <Table.Root className="w-full max-h-9/10" variant="surface" size="1">
       <Table.Header>
-        <HeaderCell
-          fieldName="name"
-          label="Name"
-          onChangeSorting={onChangeSorting}
-          sorting={sorting}
-        />
-        <HeaderCell
-          fieldName="section"
-          label="Section"
-          onChangeSorting={onChangeSorting}
-          sorting={sorting}
-        />
-        <HeaderCell
-          fieldName="price"
-          label="Price (€)"
-          onChangeSorting={onChangeSorting}
-          sorting={sorting}
-        />
-        <HeaderCell
-          fieldName="pricePerWeight"
-          label="Price / 100g (€)"
-          onChangeSorting={onChangeSorting}
-          sorting={sorting}
-        />
+        <Table.Row>
+          <HeaderCell
+            fieldName="name"
+            label="Name"
+            onChangeSorting={onChangeSorting}
+            sorting={sorting}
+          />
+          <HeaderCell
+            fieldName="section"
+            label="Section"
+            onChangeSorting={onChangeSorting}
+            sorting={sorting}
+          />
+          <HeaderCell
+            fieldName="price"
+            label="Price (€)"
+            onChangeSorting={onChangeSorting}
+            sorting={sorting}
+          />
+          <HeaderCell
+            fieldName="pricePerWeight"
+            label="Price / 100g (€)"
+            onChangeSorting={onChangeSorting}
+            sorting={sorting}
+          />
+        </Table.Row>
       </Table.Header>
       <Table.Body>
         <TableRows data={data} />
