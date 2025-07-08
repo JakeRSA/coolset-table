@@ -77,8 +77,7 @@ export const Table = ({ data }: Props) => {
   ));
 
   return (
-    <Flex direction="column" gap="3" width="100%" p="9">
-      {/* TODO sticky header */}
+    <Flex className="h-screen" direction="column" gap="3" p="9">
       <PageHeader
         sections={sectionFilters}
         onChangeFilteredSections={setSectionFilters}

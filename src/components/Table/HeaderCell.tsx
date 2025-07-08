@@ -26,7 +26,11 @@ export const HeaderCell = ({
   };
 
   return (
-    <Table.ColumnHeaderCell key={fieldName} onClick={handleClick}>
+    <Table.ColumnHeaderCell
+      className="w-1/4"
+      key={fieldName}
+      onClick={handleClick}
+    >
       <Flex gap="2" align="center">
         {sorting?.key === fieldName &&
           (sorting.direction === "ascending" ? (
@@ -34,7 +38,7 @@ export const HeaderCell = ({
           ) : (
             <ArrowDownIcon />
           ))}
-        <Heading size="1" weight="bold">
+        <Heading size="1" weight="bold" wrap="nowrap">
           {label}
         </Heading>
       </Flex>

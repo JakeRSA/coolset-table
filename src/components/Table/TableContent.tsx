@@ -22,7 +22,7 @@ export const TableContent = ({
   }
 
   return (
-    <Table.Root variant="surface" size="1">
+    <Table.Root className="w-full max-h-9/10" variant="surface" size="1">
       <Table.Header>
         <HeaderCell
           fieldName="name"
@@ -49,7 +49,7 @@ export const TableContent = ({
           sorting={sorting}
         />
       </Table.Header>
-      <Table.Body>{rows}</Table.Body>
+      <Table.Body className="overflow-y-scroll">{rows}</Table.Body>
     </Table.Root>
   );
 };
