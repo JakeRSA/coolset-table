@@ -1,19 +1,20 @@
 import { Flex, Table, Text } from "@radix-ui/themes";
-import type { Sorting } from "./Table";
+import type { GroceryTableRow, Sorting } from "./GroceryTable";
 import { HeaderCell } from "./HeaderCell";
+import { TableRows } from "./TableRows";
 
 type TableContentProps = {
-  rows: React.ReactNode[];
+  data: GroceryTableRow[];
   sorting: Sorting;
   onChangeSorting: (sorting: TableContentProps["sorting"]) => void;
 };
 
 export const TableContent = ({
-  rows,
+  data,
   sorting,
   onChangeSorting,
 }: TableContentProps) => {
-  if (rows.length === 0) {
+  if (data.length === 0) {
     return (
       <Flex justify="center" p="4">
         <Text>No data available</Text>
@@ -49,7 +50,9 @@ export const TableContent = ({
           sorting={sorting}
         />
       </Table.Header>
-      <Table.Body className="overflow-y-scroll">{rows}</Table.Body>
+      <Table.Body>
+        <TableRows data={data} />
+      </Table.Body>
     </Table.Root>
   );
 };

@@ -1,6 +1,6 @@
-import type { TableRow } from "./Table";
+import type { GroceryTableRow } from "./GroceryTable";
 
-export const mockData: TableRow[] = [
+export const mockData: GroceryTableRow[] = [
   { id: 1, name: "Bananas", section: "Produce", price: 1.29, weight: 0.5 }, // 500g
   { id: 2, name: "Apples", section: "Produce", price: 2.49, weight: 1 }, // 1kg
   { id: 3, name: "Milk", section: "Dairy", price: 3.99, weight: 1 }, // 1L

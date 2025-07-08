@@ -1,7 +1,7 @@
 import { Flex } from "@radix-ui/themes";
 import { RowsPerPage } from "./RowsPerPage";
 import { PageSwitcher } from "./PageSwitcher";
-import type { TableRow } from "../Table";
+import type { TableRow } from "../GroceryTable";
 
 type FooterProps = {
   displayedData: TableRow[];

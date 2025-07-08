@@ -1,9 +1,9 @@
 import { Flex, Heading, Table } from "@radix-ui/themes";
-import type { Sorting, TableRow } from "./Table";
+import type { Sorting, GroceryTableRow } from "./GroceryTable";
 import { ArrowDownIcon, ArrowUpIcon } from "@radix-ui/react-icons";
 
 type HeaderCellProps = {
-  fieldName: keyof TableRow;
+  fieldName: keyof GroceryTableRow;
   label: string;
   sorting: Sorting;
   onChangeSorting: (sorting: Sorting) => void;

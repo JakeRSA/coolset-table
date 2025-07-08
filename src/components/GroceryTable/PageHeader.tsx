@@ -14,18 +14,19 @@ export const PageHeader = ({
   onChangeFilteredSections,
 }: HeaderProps) => {
   const isFilterButtonVisible = Object.entries(sections).length > 0;
+  const handleCheckedChange = (field: string, isSelected: boolean) => {
+    onChangeFilteredSections({
+      ...sections,
+      [field]: !isSelected,
+    });
+  };
 
   const menuItems = Object.entries(sections).map(([field, isSelected]) => (
     <DropdownMenu.CheckboxItem
       key={field}
       checked={isSelected}
       onSelect={(e) => e.preventDefault()}
-      onCheckedChange={() => {
-        onChangeFilteredSections({
-          ...sections,
-          [field]: !isSelected,
-        });
-      }}
+      onCheckedChange={() => handleCheckedChange(field, isSelected)}
     >
       {field}
     </DropdownMenu.CheckboxItem>

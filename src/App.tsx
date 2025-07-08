@@ -2,13 +2,13 @@ import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 
 import "./App.css";
-import { Table } from "./components/Table/Table";
-import { mockData } from "./components/Table/mockData";
+import { GroceryTable } from "./components/GroceryTable/GroceryTable";
+import { mockData } from "./components/GroceryTable/mockData";
 
 function App() {
   return (
     <Theme>
-      <Table data={mockData} />
+      <GroceryTable data={mockData} />
     </Theme>
   );
 }
