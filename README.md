@@ -90,10 +90,6 @@ npm run lint
 
 Static deployment is configured for GitHub Pages via [GitHub Actions](.github/workflows/deploy.yml). Click [here](https://jakersa.github.io/coolset-table/) to visit the deployed app
 
-## License
-
-MIT (add a LICENSE file if you want to specify this)
-
 ---
 
 Made using [React](https://react.dev/), [Vite](https://vitejs.dev/), [Radix UI](https://www.radix-ui.com/themes), and [Tailwind CSS](https://tailwindcss.com/).
